@@ -24,6 +24,7 @@ public partial class CameraRenderer
         _context = context;
         _camera = camera;
 
+        PrepareForSceneWindow();
         if (!Cull())
         {
             return;
@@ -32,6 +33,7 @@ public partial class CameraRenderer
         Setup();
         DrawVisibleGeometry();
         DrawLegacyShaders();
+        DrawGizmos();
         Submit();
     }
 
@@ -43,7 +45,9 @@ public partial class CameraRenderer
         ExecuteBuffer();
     }
 
+    private partial void PrepareForSceneWindow();
     private partial void DrawLegacyShaders();
+    private partial void DrawGizmos();
     private void DrawVisibleGeometry()
     {
         //Draw opaque geometry

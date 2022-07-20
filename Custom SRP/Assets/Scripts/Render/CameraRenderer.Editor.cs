@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -17,6 +18,21 @@ partial class CameraRenderer
 
     private static Material _errorMaterial;
 
+    private partial void PrepareForSceneWindow()
+    {
+        if (_camera.cameraType == CameraType.SceneView)
+        {
+            ScriptableRenderContext.EmitWorldGeometryForSceneView(_camera);
+        }
+    }
+    private partial void DrawGizmos()
+    {
+        if (Handles.ShouldRenderGizmos())
+        {
+            _context.DrawGizmos(_camera, GizmoSubset.PreImageEffects);
+            _context.DrawGizmos(_camera, GizmoSubset.PostImageEffects);
+        }
+    }
     private partial void DrawLegacyShaders()
     {
         //Get error material
