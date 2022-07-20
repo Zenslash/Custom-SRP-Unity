@@ -10,6 +10,14 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+Custom SRP/[Ll]ibrary/
+Custom SRP/[Tt]emp/
+Custom SRP/[Oo]bj/
+Custom SRP/[Bb]uild/
+Custom SRP/[Bb]uilds/
+Custom SRP/[Ll]ogs/
+Custom SRP/[Mm]emoryCaptures/
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
