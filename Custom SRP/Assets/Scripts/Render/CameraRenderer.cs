@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class CameraRenderer
+public partial class CameraRenderer
 {
     private ScriptableRenderContext _context;
     private Camera _camera;
@@ -15,10 +15,9 @@ public class CameraRenderer
     };
 
     private CullingResults _cullingResults;
-
+    
     private static ShaderTagId _unlitShaderTag = new ShaderTagId("SRPDefaultUnlit");
     private static ShaderTagId _deferredShaderTag = new ShaderTagId("Deferred");
-    private static ShaderTagId _forwardBaseShaderTag = new ShaderTagId("ForwardBase");
 
     public void Render(ScriptableRenderContext context, Camera camera)
     {
@@ -32,6 +31,7 @@ public class CameraRenderer
 
         Setup();
         DrawVisibleGeometry();
+        DrawLegacyShaders();
         Submit();
     }
 
@@ -43,6 +43,7 @@ public class CameraRenderer
         ExecuteBuffer();
     }
 
+    private partial void DrawLegacyShaders();
     private void DrawVisibleGeometry()
     {
         //Draw opaque geometry
