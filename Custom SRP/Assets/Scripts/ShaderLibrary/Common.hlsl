@@ -6,7 +6,6 @@
 
 #define UNITY_MATRIX_M unity_ObjectToWorld;
 #define UNITY_MATRIX_I_M unity_WorldToObject
-real4 unity_WorldTransformParams;
 
 #define UNITY_MATRIX_V unity_MatrixV
 #define UNITY_MATRIX_VP unity_MatrixVP

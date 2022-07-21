@@ -5,11 +5,11 @@ using UnityEngine.Rendering;
 
 public class CustomRenderPipeline : RenderPipeline
 {
-    private Color _clearColor;
     private CameraRenderer _cameraRenderer = new CameraRenderer();
-    public CustomRenderPipeline(Color clearColor)
+    public CustomRenderPipeline()
     {
-        _clearColor = clearColor;
+        //Enable SRP Batching
+        GraphicsSettings.useScriptableRenderPipelineBatching = true;
     }
     
     protected override void Render(ScriptableRenderContext context, Camera[] cameras)
