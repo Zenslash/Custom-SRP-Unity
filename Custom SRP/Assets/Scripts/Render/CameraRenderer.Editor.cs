@@ -17,7 +17,9 @@ partial class CameraRenderer
     };
 
     private static Material _errorMaterial;
-
+    
+    private string SampleName { get; set; }
+    
     private partial void PrepareForSceneWindow()
     {
         if (_camera.cameraType == CameraType.SceneView)
@@ -25,6 +27,12 @@ partial class CameraRenderer
             ScriptableRenderContext.EmitWorldGeometryForSceneView(_camera);
         }
     }
+
+    private partial void PrepareBuffer()
+    {
+        _commandBuffer.name = SampleName = _camera.name;
+    }
+
     private partial void DrawGizmos()
     {
         if (Handles.ShouldRenderGizmos())
@@ -54,5 +62,9 @@ partial class CameraRenderer
         
         _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
     }
+#else
+
+    private const string SampleName = _bufferName;
+    
 #endif
 }
