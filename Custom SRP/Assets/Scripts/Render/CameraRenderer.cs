@@ -15,8 +15,10 @@ public partial class CameraRenderer
     };
 
     private CullingResults _cullingResults;
+    private Lighting _lighting = new Lighting();
     
     private static ShaderTagId _unlitShaderTag = new ShaderTagId("SRPDefaultUnlit");
+    private static ShaderTagId _litShaderTag = new ShaderTagId("CustomLit");
     private static ShaderTagId _deferredShaderTag = new ShaderTagId("Deferred");
 
     public void Render(ScriptableRenderContext context, Camera camera,
@@ -33,6 +35,7 @@ public partial class CameraRenderer
         }
 
         Setup();
+        _lighting.Setup(context);
         DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);
         DrawLegacyShaders();
         DrawGizmos();
@@ -66,6 +69,7 @@ public partial class CameraRenderer
             enableDynamicBatching = useDynamicBatching,
             enableInstancing = useGPUInstancing
         };
+        drawingSettings.SetShaderPassName(1, _litShaderTag);
         var filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
         
         _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
