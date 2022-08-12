@@ -9,12 +9,16 @@ using Random = UnityEngine.Random;
 public class CubeGenerator : MonoBehaviour
 {
     private static int _baseColorId = Shader.PropertyToID("_BaseColor");
+    private static int _metallicId = Shader.PropertyToID("_Metallic");
+    private static int _smoothnessId = Shader.PropertyToID("_Smoothness");
     
     [SerializeField] private Mesh _mesh = default;
     [SerializeField] private Material _material = default;
 
     private Matrix4x4[] _matrices = new Matrix4x4[1023];
     private Vector4[] _colors = new Vector4[1023];
+    private float[] _metallic = new float[1023];
+    private float[] _smoothness = new float[1023];
 
     private MaterialPropertyBlock _materialPropertyBlock;
 
@@ -28,6 +32,8 @@ public class CubeGenerator : MonoBehaviour
                 ), Vector3.one * Random.Range(0.5f, 1.5f));
             _colors[i] = new Vector4(
                 Random.value, Random.value, Random.value, Random.Range(0.5f, 1f));
+            _metallic[i] = Random.Range(0.0f, 1f);
+            _smoothness[i] = Random.Range(0.0f, 1.0f);
         }
     }
 
@@ -37,6 +43,8 @@ public class CubeGenerator : MonoBehaviour
         {
             _materialPropertyBlock = new MaterialPropertyBlock();
             _materialPropertyBlock.SetVectorArray(_baseColorId, _colors);
+            _materialPropertyBlock.SetFloatArray(_metallicId, _metallic);
+            _materialPropertyBlock.SetFloatArray(_smoothnessId, _smoothness);
         }
         Graphics.DrawMeshInstanced(_mesh, 0, _material, _matrices, 1023, _materialPropertyBlock);
     }

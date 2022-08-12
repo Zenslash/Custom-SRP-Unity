@@ -64,7 +64,13 @@ float4 LitPassFragment(VertexOUT input) : SV_TARGET
     surface.metallic = UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _Metallic);
     surface.smoothness = UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _Smoothness);
     surface.viewDirection = normalize(_WorldSpaceCameraPos - input.positionWS);
-    BRDF brdf = GetBRDF(surface);
+    
+    #if defined(_PREMULTIPLY_ALPHA)
+        BRDF brdf = GetBRDF(surface, true);
+    #else
+        BRDF brdf = GetBRDF(surface, false);
+    #endif
+    
     return float4(GetLighting(surface, brdf), surface.alpha);
 }
 
